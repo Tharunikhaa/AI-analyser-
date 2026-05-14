@@ -1,0 +1,92 @@
+suite:
+  name: AI Generated OTT Suite
+  platform: android_tv
+  tags:
+  - ai-generated
+  test_cases:
+  - id: AI-001
+    name: "\uFEFFAs a viewer, I want to quickly launch the app and play featured content"
+    priority: medium
+    tags:
+    - ai-generated
+    steps:
+    - action: launch_app
+      params:
+        app_id: ott_app
+      timeout_seconds: null
+      retry: null
+    - action: play_content
+      params:
+        content_id: AUTO_CONTENT
+        watch_seconds: 12
+      timeout_seconds: null
+      retry: null
+    - action: visual_check
+      params:
+        baseline: assets/baseline.png
+        current: assets/current.png
+      timeout_seconds: null
+      retry: null
+    - action: collect_logs
+      params: {}
+      timeout_seconds: null
+      retry: null
+  - id: AI-002
+    name: As a user, I need search and playback quality checks
+    priority: medium
+    tags:
+    - ai-generated
+    steps:
+    - action: launch_app
+      params:
+        app_id: ott_app
+      timeout_seconds: null
+      retry: null
+    - action: navigate
+      params:
+        target: search
+      timeout_seconds: null
+      retry: null
+    - action: custom
+      params:
+        operation: query_content
+        selector: search_box
+      timeout_seconds: null
+      retry: null
+    - action: play_content
+      params:
+        content_id: AUTO_CONTENT
+        watch_seconds: 12
+      timeout_seconds: null
+      retry: null
+    - action: assert_metric
+      params:
+        metric: rebuffer_ratio
+        lte: 0.03
+      timeout_seconds: null
+      retry: null
+    - action: collect_logs
+      params: {}
+      timeout_seconds: null
+      retry: null
+  - id: AI-003
+    name: As a QA lead, I want visual UI consistency verification
+    priority: medium
+    tags:
+    - ai-generated
+    steps:
+    - action: launch_app
+      params:
+        app_id: ott_app
+      timeout_seconds: null
+      retry: null
+    - action: visual_check
+      params:
+        baseline: assets/baseline.png
+        current: assets/current.png
+      timeout_seconds: null
+      retry: null
+    - action: collect_logs
+      params: {}
+      timeout_seconds: null
+      retry: null

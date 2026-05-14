@@ -1,0 +1,34 @@
+suite:
+  name: OTT Smoke Suite
+  platform: android_tv
+  tags: [smoke, sanity]
+  test_cases:
+    - id: SMK-001
+      name: App launch and home navigation
+      priority: high
+      steps:
+        - action: launch_app
+          params:
+            app_id: com.demo.ott
+        - action: navigate
+          params:
+            target: home
+        - action: assert_metric
+          params:
+            metric: startup_time_ms
+            lte: 4000
+    - id: SMK-002
+      name: Play featured content
+      priority: high
+      steps:
+        - action: navigate
+          params:
+            target: featured
+        - action: play_content
+          params:
+            content_id: MOVIE_1001
+            watch_seconds: 8
+        - action: assert_metric
+          params:
+            metric: rebuffer_ratio
+            lte: 0.03

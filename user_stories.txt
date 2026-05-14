@@ -1,0 +1,3 @@
+﻿As a viewer, I want to quickly launch the app and play featured content.
+As a user, I need search and playback quality checks.
+As a QA lead, I want visual UI consistency verification.

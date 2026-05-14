@@ -1,0 +1,40 @@
+suite:
+  name: Web Player Real Adapter Suite
+  platform: web_player_real
+  tags: [real, web, smoke]
+  test_cases:
+    - id: WEB-REAL-001
+      name: Launch and navigate to home
+      priority: high
+      steps:
+        - action: launch_app
+          params:
+            path: /
+            timeout_ms: 30000
+        - action: navigate
+          params:
+            target: home
+            timeout_ms: 15000
+        - action: collect_logs
+          params: {}
+    - id: WEB-REAL-002
+      name: Search and playback quality sample
+      priority: high
+      steps:
+        - action: launch_app
+          params:
+            path: /
+        - action: custom
+          params:
+            operation: query_content
+            value: documentary
+        - action: play_content
+          params:
+            watch_seconds: 12
+            video_selector: video
+        - action: assert_metric
+          params:
+            metric: rebuffer_ratio
+            lte: 0.05
+        - action: collect_logs
+          params: {}

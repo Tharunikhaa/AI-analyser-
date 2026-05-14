@@ -1,0 +1,43 @@
+suite:
+  name: OTT Regression Suite
+  platform: web_player
+  tags: [regression]
+  test_cases:
+    - id: REG-001
+      name: Search and play flow
+      priority: medium
+      steps:
+        - action: launch_app
+          params:
+            app_id: web_player
+        - action: navigate
+          params:
+            target: search
+        - action: custom
+          params:
+            operation: query_content
+            value: documentary
+        - action: play_content
+          params:
+            content_id: DOC_2044
+            watch_seconds: 10
+    - id: REG-002
+      name: Continue watching resume
+      priority: medium
+      steps:
+        - action: navigate
+          params:
+            target: continue_watching
+        - action: play_content
+          params:
+            content_id: SERIES_311_EP4
+            watch_seconds: 12
+        - action: assert_metric
+          params:
+            metric: frame_drop_ratio
+            lte: 0.05
+        - action: visual_check
+          params:
+            baseline: assets/baseline.bin
+            current: assets/current.bin
+            threshold: 0.35

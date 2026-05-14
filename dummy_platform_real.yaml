@@ -1,0 +1,49 @@
+suite:
+  name: Dummy OTT Platform Real Web Suite
+  platform: web_player_real
+  tags: [dummy, web, real]
+  test_cases:
+    - id: DUMMY-001
+      name: Launch dummy platform and navigate to home
+      priority: high
+      steps:
+        - action: launch_app
+          params:
+            url: http://127.0.0.1:8090/
+            timeout_ms: 30000
+        - action: navigate
+          params:
+            target: http://127.0.0.1:8090/home
+            timeout_ms: 15000
+        - action: assert_metric
+          params:
+            metric: startup_time_ms
+            lte: 8000
+        - action: collect_logs
+          params: {}
+    - id: DUMMY-002
+      name: Search and playback on dummy platform
+      priority: high
+      steps:
+        - action: launch_app
+          params:
+            url: http://127.0.0.1:8090/
+        - action: custom
+          params:
+            operation: query_content
+            value: documentary
+        - action: custom
+          params:
+            operation: click
+            selector: "[data-content-id='DOC_1001'] button"
+        - action: play_content
+          params:
+            watch_seconds: 8
+            video_selector: "#player"
+            allow_no_progress: true
+        - action: assert_metric
+          params:
+            metric: rebuffer_ratio
+            lte: 0.5
+        - action: collect_logs
+          params: {}

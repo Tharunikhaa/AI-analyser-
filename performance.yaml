@@ -1,0 +1,24 @@
+suite:
+  name: OTT Performance Suite
+  platform: tizen
+  tags: [performance, qoe]
+  test_cases:
+    - id: PRF-001
+      name: Startup and long-play QoE
+      priority: high
+      steps:
+        - action: launch_app
+          params:
+            app_id: com.demo.ott
+        - action: play_content
+          params:
+            content_id: SPORTS_LIVE_77
+            watch_seconds: 20
+        - action: assert_metric
+          params:
+            metric: startup_time_ms
+            lte: 3500
+        - action: assert_metric
+          params:
+            metric: bitrate_kbps
+            gte: 2000
